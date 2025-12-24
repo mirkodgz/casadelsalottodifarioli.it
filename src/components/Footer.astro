@@ -1,0 +1,120 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col brand-col">
+        <a href="/" class="footer-logo">
+          <img src="/assets/Logo-casadelsalotto.png" alt="Casa del Salotto di Farioli" width="180" height="50" />
+        </a>
+        <p class="address mt-2">
+          Piazza Castegnate, 1<br>
+          21053 Castellanza (VA)<br>
+          <a href="tel:+393803104932">Tel. 3803 104 932</a>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Link Rapidi</h4>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/servizi">Servizi</a></li>
+            <li><a href="/storia">La Nostra Storia</a></li>
+            <li><a href="/contatti">Contatti</a></li>
+
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Servizi</h4>
+        <ul>
+            <li><a href="/servizi/tende-su-misura">Tende su misura</a></li>
+            <li><a href="/servizi/rifacimento-divani">Rifacimento divani</a></li>
+            <li><a href="/servizi/tappezzeria">Tappezzeria</a></li>
+            <li><a href="/servizi/materassi">Materassi</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="footer-divider" />
+    
+    <div class="footer-seo">
+      <p>Servizi artigianali a Castellanza (VA): tende su misura, rifacimento divani, tappezzeria, materassi, tessuti d’arredo, complementi letto e mobili.</p>
+    </div>
+
+    <div class="copyright">
+      &copy; {year} Casa del Salotto di Farioli.
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: #f4f4f4;
+    padding: 3rem 0 1rem;
+    margin-top: 4rem;
+    color: #444;
+    border-top: 4px solid var(--primary);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-col h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+  }
+
+  .footer-logo img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 1rem;
+  }
+  
+  .mt-2 { margin-top: 0.5rem; }
+
+  .footer-col h4 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #222;
+  }
+
+  .footer-col ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-col a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+  }
+
+  .footer-divider {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 2rem 0;
+  }
+
+  .footer-seo p {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .copyright {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+  }
+
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1.5fr 1fr 1fr;
+    }
+  }
+</style>

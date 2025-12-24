@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "La Nostra Storia | Casa del Salotto di Farioli - Artigiani dal 19xx";
+const description = "Scopri la storia della Casa del Salotto a Castellanza. Una tradizione di artigianato tessile, tende e divani su misura che dura da decenni.";
+---
+
+<Layout title={title} description={description}>
+  <section class="page-header bg-light">
+    <div class="container text-center">
+      <h1>Una Storia di Passione Artigiana</h1>
+      <p class="subtitle">Nel cuore di Castellanza, l'amore per il "fatto bene" che si tramanda nel tempo.</p>
+    </div>
+  </section>
+
+  <section class="section-content">
+    <div class="container max-800">
+      <div class="story-image mb-4">
+        <!-- Placeholder for history image -->
+        <img src="/assets/about-chi-siamo.webp" alt="Laboratorio Casa del Salotto" onerror="this.src='https://placehold.co/800x400?text=Laboratorio+Storico'" />
+      </div>
+
+      <div class="prose">
+        <h2>Le Origini</h2>
+        <p>
+          La <strong>Casa del Salotto di Farioli</strong> non è solo un negozio, ma un vero e proprio laboratorio di idee e manualità che ha le sue radici nella profonda tradizione artigianale della provincia di Varese. Tutto è iniziato con la semplice idea di offrire un prodotto diverso da quello industriale: un prodotto curato nei minimi dettagli, capace di durare nel tempo e di raccontare una storia.
+        </p>
+        <p>
+          Situati in <strong>Piazza Castegnate a Castellanza</strong>, siamo diventati negli anni un punto di riferimento per chi cerca non solo una tenda o un divano, ma una consulenza d'arredo completa. La nostra forza risiede nella capacità di ascoltare il cliente e trasformare un'esigenza funzionale in un elemento estetico di pregio.
+        </p>
+
+        <h2>Il Valore del "Su Misura"</h2>
+        <p>
+          In un mondo dominato dalla standardizzazione, noi abbiamo scelto di restare fedeli al <strong>su misura</strong>. Ogni casa è diversa, ogni finestra ha la sua luce, ogni salotto ha le sue proporzioni. Per questo motivo, non vendiamo prodotti "a scatola chiusa".
+        </p>
+        <p>
+          Il nostro processo lavorativo parte sempre dal <strong>sopralluogo</strong>. Veniamo nelle vostre case, osserviamo l'ambiente, i colori, lo stile dei mobili esistenti. Solo così possiamo consigliarvi il tessuto giusto, la trasparenza ideale per una tenda, o la densità perfetta per l'imbottitura di un divano.
+        </p>
+
+        <h2>Il Nostro Laboratorio</h2>
+        <p>
+          Il cuore pulsante della nostra attività è il <strong>laboratorio interno</strong>. È qui che le mani esperte dei nostri artigiani tagliano, cuciono e assemblano. Le nostre macchine da cucire lavorano instancabilmente tessuti pregiati: lini, cotoni, sete, velluti e tessuti tecnici di ultima generazione.
+        </p>
+        <p>
+          Per i <strong>divani</strong> e le <strong>poltrone</strong>, la lavorazione è ancora più complessa: partiamo dalla verifica dei fusti in legno, passando per il molleggio tradizionale con cinghie elastiche o molle d'acciaio, fino alla posa dell'imbottitura e al rivestimento finale, tirato a mano con precisione millimetrica.
+        </p>
+
+        <h2>Innovazione nella Tradizione</h2>
+        <p>
+          Pur mantenendo un'anima artigiana, guardiamo al futuro. Selezioniamo materiali innovativi, come i tessuti antimacchia lavabili con sola acqua, o le imbottiture in memory foam che garantiscono un comfort superiore. Anche nel settore delle tende, proponiamo soluzioni moderne come i binari motorizzati integrati nella domotica, unendo l'eleganza del tessuto alla comodità della tecnologia.
+        </p>
+
+        <h2>Perché Sceglierci</h2>
+        <ul>
+          <li><strong>Esperienza:</strong> Decenni di lavoro sul campo ci permettono di risolvere qualsiasi problematica tecnica.</li>
+          <li><strong>Assistenza:</strong> Non vi abbandoniamo dopo la vendita. Offriamo servizi di lavaggio, manutenzione e riparazione nel tempo.</li>
+          <li><strong>Territorio:</strong> Siamo una realtà locale, radicata a Castellanza e Varese, che crede nel rapporto diretto e di fiducia con il cliente.</li>
+        </ul>
+
+        <div class="cta-box mt-5 text-center bg-light p-4 rounded">
+          <h3>Venite a trovarci</h3>
+          <p>Saremo lieti di mostrarvi come lavoriamo e farvi toccare con mano la qualità dei nostri tessuti.</p>
+          <a href="/contatti" class="btn">Contattaci per un appuntamento</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header { padding: 4rem 0; }
+  .subtitle { font-size: 1.2rem; margin-top: 1rem; color: #666; }
+  
+  .max-800 { max-width: 800px; margin: 0 auto; }
+  
+  .story-image img {
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    width: 100%;
+    height: auto;
+  }
+  
+  .prose { font-size: 1.1rem; line-height: 1.8; color: #444; }
+  .prose h2 { margin-top: 2.5rem; color: var(--primary); }
+  .prose ul { margin: 1.5rem 0; padding-left: 1.5rem; list-style: disc; }
+  .prose li { margin-bottom: 0.5rem; }
+  
+  .cta-box { border: 1px solid #ddd; }
+  .rounded { border-radius: 8px; }
+  .p-4 { padding: 2rem; }
+  .mt-5 { margin-top: 3rem; }
+</style>

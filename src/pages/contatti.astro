@@ -1,0 +1,192 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "Contatti e Preventivi | Casa del Salotto di Farioli";
+const description = "Richiedi un preventivo gratuito per tende e divani. Vieni a trovarci a Castellanza (VA) in Piazza Castegnate 1. Tel 3803 104 932.";
+---
+
+<Layout title={title} description={description}>
+  <section class="bg-light page-header">
+    <div class="container text-center">
+      <h1>Entra in Contatto</h1>
+      <p>Siamo a vostra disposizione per consulenze e preventivi gratuiti.</p>
+    </div>
+  </section>
+
+  <section class="section-contacts">
+    <div class="container">
+      <div class="grid grid-2 contact-grid">
+        <!-- MAPPA -->
+        <div class="map-col">
+          <div class="map-wrapper">
+             <iframe 
+               width="100%" 
+               height="450" 
+               frameborder="0" 
+               scrolling="no" 
+               marginheight="0" 
+               marginwidth="0" 
+               src="https://maps.google.com/maps?q=Piazza+Castegnate,+1,+21053+Castellanza+VA&t=&z=15&ie=UTF8&iwloc=&output=embed"
+               aria-label="Mappa di Google Maps per Casa del Salotto"
+             ></iframe>
+          </div>
+          <div class="map-actions text-center mt-2">
+            <a href="https://maps.app.goo.gl/cjugekg4ofvbnDuJA" target="_blank" class="btn btn-secondary">
+              Indicazioni Stradali
+            </a>
+          </div>
+        </div>
+
+        <!-- INFO -->
+        <div class="info-col">
+          <h2>I Nostri Recapiti</h2>
+          <div class="contact-card">
+             <div class="contact-item">
+               <strong>Indirizzo:</strong><br>
+               Piazza Castegnate, 1<br>
+               21053 Castellanza (VA)
+             </div>
+             
+             <div class="contact-item">
+               <strong>Telefono:</strong><br>
+               <a href="tel:+393803104932" class="phone-link">3803 104 932</a>
+             </div>
+
+             <div class="contact-item">
+               <strong>Orari:</strong><br>
+               Lun - Sab: 09:00 - 12:30 | 15:00 - 19:30<br>
+               Domenica chiuso
+             </div>
+
+             <div class="cta-group">
+               <a href="tel:+393803104932" class="btn btn-full">Chiama Ora</a>
+               <a href="https://api.whatsapp.com/send/?phone=393803104932" class="btn btn-whatsapp btn-full">Scrivici su WhatsApp</a>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEZIONE PREVENTIVO (WhatsApp Generator) -->
+  <section id="preventivo" class="section-preventivo">
+    <div class="container max-600">
+      <div class="preventivo-box">
+        <h2>Richiedi un Preventivo</h2>
+        <p>Compila i campi qui sotto per inviarci una richiesta rapida direttamente su WhatsApp.</p>
+        
+        <form id="wa-form" class="wa-form">
+          <div class="form-group">
+            <label for="name">Il tuo Nome</label>
+            <input type="text" id="name" name="name" required placeholder="Mario Rossi" />
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Di cosa hai bisogno? (es. Tende, Divano...)</label>
+            <textarea id="message" name="message" rows="3" required placeholder="Vorrei un preventivo per..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-whatsapp width-100">Invia richiesta su WhatsApp</button>
+          <p class="small-note">* Inviando verrai reindirizzato all'app di WhatsApp con il messaggio precompilato.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('wa-form');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = (document.getElementById('name') as HTMLInputElement).value;
+        const msg = (document.getElementById('message') as HTMLTextAreaElement).value;
+        
+        const text = `Buongiorno, sono ${name}. ${msg}`;
+        const encodedText = encodeURIComponent(text);
+        
+        window.open(`https://api.whatsapp.com/send/?phone=393803104932&text=${encodedText}`, '_blank');
+      });
+    }
+  </script>
+
+</Layout>
+
+<style>
+  .page-header { padding: 4rem 0; }
+  .map-wrapper { 
+    border-radius: 8px; 
+    overflow: hidden; 
+    box-shadow: var(--shadow);
+    border: 1px solid #ddd;
+  }
+  
+  .mt-2 { margin-top: 1rem; }
+  
+  .contact-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+  
+  .contact-item {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .phone-link {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  
+  .cta-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .btn-full { text-align: center; display: block; }
+  
+  .btn-whatsapp {
+    background-color: #25d366;
+    border-color: #25d366;
+  }
+  .btn-whatsapp:hover {
+    background-color: #128c7e;
+  }
+
+  /* Preventivo Box */
+  .section-preventivo {
+    padding-top: 0;
+  }
+  
+  .preventivo-box {
+    background: var(--bg-light);
+    padding: 2rem;
+    border-radius: 8px;
+    border-top: 4px solid var(--primary);
+    box-shadow: var(--shadow);
+  }
+  
+  .max-600 { max-width: 600px; margin: 0 auto; }
+  
+  .wa-form { margin-top: 1.5rem; }
+  
+  .form-group { margin-bottom: 1rem; }
+  
+  label { display: block; font-weight: 600; margin-bottom: 0.5rem; }
+  
+  input, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+  }
+  
+  .width-100 { width: 100%; }
+  
+  .small-note { font-size: 0.8rem; color: #666; margin-top: 0.5rem; }
+</style>

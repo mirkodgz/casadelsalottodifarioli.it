@@ -1,16 +1,295 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import ServiceCarousel from '../components/ServiceCarousel.astro';
+import { services } from '../data/services';
 
+const title = "Casa del Salotto di Farioli | Tende e Divani su Misura a Castellanza";
+const description = "Artigiani a Castellanza da oltre 40 anni. Tende su misura, rifacimento divani, tappezzeria e materassi. Qualità e passione per l'arredamento tessile.";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title={title} description={description}>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1>Produzione artigianale di tende per interno, divani e letti su misura</h1>
+      <p class="hero-subtitle">Qualità artigianale e passione per i dettagli a Castellanza.</p>
+      <div class="hero-buttons">
+        <a href="/contatti#preventivo" class="btn">Richiedi Preventivo</a>
+        <a href="#servizi" class="btn btn-transparent">Scopri i nostri servizi</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORIA TEASER -->
+  <section class="section-storia">
+    <div class="container">
+      <div class="grid grid-2 text-image-grid">
+        <div class="text-col">
+          <h2>La nostra storia</h2>
+          <p>
+            Da oltre 40 anni, la <strong>Casa del Salotto di Farioli</strong> è un punto di riferimento a Castellanza e nella provincia di Varese per l'arredamento tessile.
+          </p>
+          <p>
+            Nata come piccolo laboratorio artigianale, abbiamo mantenuto intatta la passione per il "fatto a mano", evolvendoci nelle tecniche e nei materiali. Nel nostro showroom e laboratorio interno, trasformiamo le vostre idee in realtà.
+          </p>
+          <p>
+            Offriamo un servizio completo: dalla consulenza iniziale al confezionamento su misura, fino all'installazione a casa vostra.
+          </p>
+          <a href="/storia" class="link-arrow">Leggi la nostra storia completa &rarr;</a>
+        </div>
+        <div class="image-col">
+            <!-- Placeholder for history image -->
+             <img src="/assets/about-chi-siamo.webp" alt="Laboratorio artigianale Farioli" class="rounded-img" 
+             onerror="this.src='https://placehold.co/600x400?text=Laboratorio+Artigianale'" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIZI -->
+  <section id="servizi" class="section-servizi bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5">I Nostri Servizi</h2>
+      
+      <div class="services-list">
+        {services.map((service, index) => (
+          <div class={`service-block ${index % 2 !== 0 ? 'reversed' : ''}`} id={service.id}>
+            <div class="service-text">
+              <h3>{service.title}</h3>
+              <p class="service-desc">{service.shortDescription}</p>
+              <div class="service-actions">
+                <a href={`/servizi/${service.id}`} class="btn btn-secondary">Info</a>
+                <a href="/contatti#preventivo" class="btn">Preventivo</a>
+              </div>
+            </div>
+            <div class="service-media">
+               <ServiceCarousel serviceId={service.id} altPrefix={service.title} count={service.imageCount} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <!-- CTA FINAL -->
+  <section class="section-cta">
+    <div class="container text-center">
+      <h2>Pronto a rinnovare la tua casa?</h2>
+      <p>Contattaci oggi stesso per una consulenza gratuita.</p>
+      <a href="/contatti" class="btn btn-white">Contattaci Ora</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* HERO */
+  .hero {
+    position: relative;
+    background-image: url('/assets/foto-hero-img.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 8rem 0;
+    text-align: center;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+  }
+  
+  .hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .btn-transparent {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+  }
+  
+  .btn-transparent:hover {
+    background: white;
+    color: var(--primary);
+  }
+
+  /* Text Image Grid */
+  .text-image-grid {
+    align-items: center;
+  }
+  
+  .rounded-img {
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+  
+  .link-arrow {
+    color: var(--primary);
+    font-weight: 600;
+    margin-top: 1rem;
+    display: inline-block;
+  }
+
+  /* Services List */
+  .service-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-bottom: 4rem;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .service-block:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  
+  .service-desc {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #555;
+  }
+  
+  .service-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .service-block {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    /* Alternating layout using Flexbox/Grid 'order' property */
+    .service-block.reversed .service-text {
+      order: 2;
+      padding-left: 2rem;
+    }
+    
+    .service-block.reversed .service-media {
+      order: 1;
+    }
+    
+    .service-block:not(.reversed) .service-text {
+        padding-right: 2rem;
+    }
+  }
+
+  /* Process */
+  .process-grid {
+    text-align: center;
+    padding-top: 2rem;
+  }
+  
+  .step-number {
+    width: 60px;
+    height: 60px;
+    background: var(--primary);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+  }
+
+  /* FAQ */
+  .max-800 { max-width: 800px; }
+  .faq-list details {
+    background: white;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    cursor: pointer;
+  }
+  
+  .faq-list summary {
+    font-weight: 600;
+    list-style: none; /* Hide default triangle in some browsers */
+    position: relative;
+    padding-right: 20px;
+  }
+  
+  .faq-list summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-list summary::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    font-weight: bold;
+    color: var(--primary);
+  }
+  
+  .faq-list details[open] summary::after {
+    content: '-';
+  }
+  
+  .faq-list p {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    color: #666;
+  }
+
+  /* CTA */
+  .section-cta {
+    background-color: var(--primary);
+    color: white;
+  }
+  .section-cta h2 { color: white; }
+  
+  .btn-white {
+    background: white;
+    color: var(--primary);
+    border-color: white;
+  }
+  .btn-white:hover {
+    background: #f0f0f0;
+    color: var(--primary-dark);
+  }
+  
+  .mb-5 { margin-bottom: 3rem; }
+  .text-center { text-align: center; }
+  
+  @media (min-width: 768px) {
+      .grid-4 { grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+  }
+</style>

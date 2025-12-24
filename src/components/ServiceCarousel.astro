@@ -1,0 +1,186 @@
+---
+export interface Props {
+  serviceId: string;
+  count?: number;
+  altPrefix: string;
+}
+
+const { serviceId, altPrefix, count = 5 } = Astro.props;
+
+const images = Array.from({ length: count }, (_, i) => i + 1);
+const uniqueId = `carousel-${serviceId}-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class="carousel-container" id={uniqueId}>
+  <div class="carousel-track">
+    {images.map((imgNum) => (
+      <div class="carousel-slide">
+           <img 
+            src={`/assets/${serviceId}-img-0${imgNum}.jpg`} 
+            alt={`${altPrefix} - Foto ${imgNum}`} 
+            loading="eager"
+            width="600"
+            height="400"
+            onerror="this.onerror=null; this.src='https://placehold.co/600x400?text=Foto+Non+Trovata';"
+           />
+      </div>
+    ))}
+  </div>
+  
+  <button class="carousel-btn prev" aria-label="Precedente">❮</button>
+  <button class="carousel-btn next" aria-label="Successivo">❯</button>
+
+  <div class="carousel-dots">
+    {images.map((_, index) => (
+      <button class="dot" aria-label={`Vai alla slide ${index + 1}`} data-index={index}></button>
+    ))}
+  </div>
+</div>
+
+<script define:vars={{ uniqueId }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById(uniqueId);
+    if (!container) return;
+
+    const track = container.querySelector('.carousel-track');
+    const slides = container.querySelectorAll('.carousel-slide');
+    const prevBtn = container.querySelector('.prev');
+    const nextBtn = container.querySelector('.next');
+    const dots = container.querySelectorAll('.dot');
+    
+    let currentIndex = 0;
+
+    const updateCarousel = (index) => {
+      // Use scrollIntoView or scrollLeft for native feel
+      const slideWidth = slides[0].clientWidth;
+      track.scrollTo({
+        left: slideWidth * index,
+        behavior: 'smooth'
+      });
+      
+      // Update dots
+      dots.forEach(d => d.classList.remove('active'));
+      dots[index].classList.add('active');
+      currentIndex = index;
+    };
+
+    // Scroll listener to update dots on swipe
+    track.addEventListener('scroll', () => {
+      const slideWidth = slides[0].clientWidth;
+      const scrollPos = track.scrollLeft;
+      const newIndex = Math.round(scrollPos / slideWidth);
+      if (newIndex !== currentIndex) {
+        dots.forEach(d => d.classList.remove('active'));
+        if(dots[newIndex]) dots[newIndex].classList.add('active');
+        currentIndex = newIndex;
+      }
+    }, { passive: true });
+
+    prevBtn.addEventListener('click', () => {
+      const newIndex = Math.max(0, currentIndex - 1);
+      updateCarousel(newIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const newIndex = Math.min(slides.length - 1, currentIndex + 1);
+      updateCarousel(newIndex);
+    });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => updateCarousel(index));
+    });
+    
+    // Init default
+    dots[0].classList.add('active');
+  });
+</script>
+
+<style>
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    margin: 2rem 0;
+    overflow: hidden; /* Hide overflow from container */
+  }
+
+  .carousel-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .carousel-track::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
+  .carousel-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    background: #f0f0f0; /* Fallback background */
+    min-height: 300px;
+  }
+
+  .carousel-slide img {
+    width: 100%;
+    height: 300px; /* Fixed height for consistency */
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+  }
+  
+  .carousel-btn:hover {
+    background: var(--primary);
+  }
+
+  .prev { left: 10px; }
+  .next { right: 10px; }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .dot.active {
+    background: var(--primary);
+  }
+  
+  @media (min-width: 768px) {
+      .carousel-slide img {
+          height: 400px;
+      }
+  }
+</style>
