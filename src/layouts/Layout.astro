@@ -1,8 +1,10 @@
 ---
-import '../styles/global.css';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import WhatsAppBtn from '../components/WhatsAppBtn.astro';
+import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import WhatsAppBtn from "../components/WhatsAppBtn.astro";
+import Loader from "../components/Loader.astro";
 
 export interface Props {
   title?: string;
@@ -10,10 +12,10 @@ export interface Props {
   image?: string;
 }
 
-const { 
+const {
   title = "Casa del Salotto - Tende su misura e Divani a Castellanza (VA)",
   description = "Produzione artigianale di tende per interni, rifacimento divani, tappezzeria, materassi e complementi letto a Castellanza e provincia di Varese.",
-  image = "/assets/Logo-casadelsalotto.webp" // Default OG Image as requested
+  image = "/assets/Logo-casadelsalotto.webp", // Default OG Image as requested
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -21,89 +23,115 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const schema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "Casa del Salotto di Farioli",
-  "image": new URL(image, Astro.site).toString(),
-  "telephone": "+393803104932",
-  "url": Astro.site.toString(),
-  "address": {
+  name: "Casa del Salotto di Farioli",
+  image: new URL(image, Astro.site).toString(),
+  telephone: "+393803104932",
+  url: Astro.site.toString(),
+  address: {
     "@type": "PostalAddress",
-    "streetAddress": "Piazza Castegnate, 1",
-    "addressLocality": "Castellanza",
-    "addressRegion": "VA",
-    "postalCode": "21053",
-    "addressCountry": "IT"
+    streetAddress: "Piazza Castegnate, 1",
+    addressLocality: "Castellanza",
+    addressRegion: "VA",
+    postalCode: "21053",
+    addressCountry: "IT",
   },
-  "geo": {
+  geo: {
     "@type": "GeoCoordinates",
-    "latitude": 45.6115, 
-    "longitude": 8.9004
+    latitude: 45.6115,
+    longitude: 8.9004,
   },
-  "areaServed": ["Castellanza", "Varese", "Legnano", "Busto Arsizio", "Gallarate", "Provincia di Varese"],
-  "priceRange": "€€",
-  "sameAs": [
-    "https://maps.app.goo.gl/cjugekg4ofvbnDuJA"
+  areaServed: [
+    "Castellanza",
+    "Varese",
+    "Legnano",
+    "Busto Arsizio",
+    "Gallarate",
+    "Provincia di Varese",
   ],
-  "openingHoursSpecification": [
+  priceRange: "€€",
+  sameAs: ["https://maps.app.goo.gl/cjugekg4ofvbnDuJA"],
+  openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      "opens": "09:00",
-      "closes": "19:00"
-    }
-  ]
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
+      opens: "09:00",
+      closes: "19:00",
+    },
+  ],
 };
 
 // Breadcrumbs Schema
 const breadcrumbsSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": [
+  itemListElement: [
     {
       "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": Astro.site ? Astro.site.toString() : "https://casadelsalottodifarioli.it"
+      position: 1,
+      name: "Home",
+      item: Astro.site
+        ? Astro.site.toString()
+        : "https://casadelsalottodifarioli.it",
     },
-    ...(Astro.url.pathname !== '/' ? [{
-        "@type": "ListItem",
-        "position": 2,
-        "name": title.split('|')[0].trim(),
-        "item": new URL(Astro.url.pathname, Astro.site).toString()
-    }] : [])
-  ]
+    ...(Astro.url.pathname !== "/"
+      ? [
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: title.split("|")[0].trim(),
+            item: new URL(Astro.url.pathname, Astro.site).toString(),
+          },
+        ]
+      : []),
+  ],
 };
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    
+
     <!-- SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, Astro.site).toString()} />
-    
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Schema.org -->
     <!-- Schema.org -->
-    <script type="application/ld+json" set:html={JSON.stringify([schema, breadcrumbsSchema])} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify([schema, breadcrumbsSchema])}
+    />
+    <ClientRouter />
   </head>
   <body>
+    <Loader />
     <Header />
     <main>
       <slot />
