@@ -8,7 +8,8 @@ export default defineConfig({
   site: 'https://casadelsalottodifarioli.it',
   integrations: [sitemap()],
   output: 'static',
+  trailingSlash: 'ignore',
   build: {
-    format: 'file'
+    format: 'directory' // Changed from 'file' to fix Vercel 404s on /storia, /contatti etc.
   }
 });
